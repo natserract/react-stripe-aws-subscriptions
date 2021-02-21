@@ -8,6 +8,6 @@ const stripe = new Stripe(SECRET_API_KEY, {
   apiVersion: "2020-08-27",
 });
 
-export const stripeViewProducts = async (productLists: Stripe.ProductListParams) => {
-  return await stripe.products.list(productLists);
+export const stripeViewProducts = async (productListParams: Stripe.ProductListParams) => {
+  return await stripe.products.list(productListParams);
 };
