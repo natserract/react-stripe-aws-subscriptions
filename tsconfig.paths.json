@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@libs/*": ["server/src/libs/*"],
+      "~/*": ["./server/*"],
+    }
+  }
+}
