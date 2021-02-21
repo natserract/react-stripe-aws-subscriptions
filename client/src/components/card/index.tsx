@@ -11,7 +11,21 @@ import styles from './styles'
 
 const useStyles = makeStyles(styles)
 
-const ProductCard = () => {
+interface IProductCardProps {
+  media: string;
+  title: string;
+  description: string;
+  price: string;
+  renderAction?: React.ReactNode
+}
+
+const ProductCard: React.FunctionComponent<IProductCardProps> = ({
+  media,
+  title,
+  description,
+  price,
+  renderAction,
+}: IProductCardProps) => {
   const classes = useStyles();
 
   return (
@@ -19,26 +33,27 @@ const ProductCard = () => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
+          image={media}
+          title={title}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            {title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {price}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
+        {renderAction || (
+          <Button size="small" color="primary">
+            Share
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

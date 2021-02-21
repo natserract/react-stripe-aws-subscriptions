@@ -57,23 +57,10 @@ const globalStyle = {
     },
   };
   
-  const typography = {
-    fontFamily: 'Serif',
-    h1: {
-      fontFamily: 'Serif',
-    },
-    h2: {
-      fontFamily: 'Serif',
-    },
-    h3: {
-      fontFamily: 'Serif',
-    },
-  }
   
   export default {
     globalStyle,
     breakpoints,
-    palette,
-    typography,
+    // palette,
   };
   
