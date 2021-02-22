@@ -11,7 +11,8 @@ export default {
         request: {
           parameters: {
             querystrings: {
-              limit: true
+              page: true,
+              limit: true,
             }
           }
         },

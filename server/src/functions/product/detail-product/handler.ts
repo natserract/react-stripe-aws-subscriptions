@@ -4,7 +4,7 @@ import {
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
 import { APIGatewayEvent } from "aws-lambda";
-import { stripDetailProduct } from "~/src/stripe";
+import { stripeProduct } from "~/src/stripe";
 import { middyfy, parse } from "@libs/lambda";
 
 interface IDetailProduct {
@@ -15,7 +15,7 @@ const detailProductHandler: ValidatedEventAPIGatewayProxyEvent<IDetailProduct> =
   const { id } = parse<IDetailProduct>(event.pathParameters)
 
   try {
-    const data = await stripDetailProduct(id);
+    const data = await stripeProduct.retrieve(id);
     return formatJSONResponse({ ...data });
   } catch (error) {
     return formatJSONResponse(error);
