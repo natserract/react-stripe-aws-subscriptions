@@ -50,11 +50,11 @@ const Dashboard = ({ toastManager }: Props) => {
     const { error: err, showError } = useErrorHandler(null);
 
     const { isLoading, error, data }: QueryObserverResult<any, any> = useQuery('viewAllProducts', () => Promise.all([
-        fetch('http://localhost:3000/dev/products?limit=3').then(res =>
+        fetch('http://localhost:3000/dev/products?limit=5').then(res =>
             res.json()
         ),
 
-        fetch('http://localhost:3000/dev/prices?limit=3').then(res =>
+        fetch('http://localhost:3000/dev/prices?limit=5').then(res =>
             res.json()
         ),
     ]))

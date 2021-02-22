@@ -6,7 +6,7 @@ export const middyfy = (handler) => {
   return middy(handler).use(middyJsonBodyParser())
 }
 
-export function jsonParse<T>(event: APIGatewayProxyEventPathParameters | string): T {
+export function parse<T>(event: APIGatewayProxyEventPathParameters | string): T {
   const stringify = JSON.stringify(event);
   const incoming: T = JSON.parse(stringify);
 

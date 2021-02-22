@@ -4,14 +4,14 @@ import {
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
 import { APIGatewayEvent } from "aws-lambda";
-import { stripeViewPrices } from "~/src/stripe/price";
-import { middyfy, jsonParse } from "@libs/lambda";
+import { stripeViewPrices } from "~/src/stripe";
+import { middyfy, parse } from "@libs/lambda";
 import { Stripe } from "stripe";
 
 const viewPricesHandler: ValidatedEventAPIGatewayProxyEvent<Stripe.PriceListParams> = async (
   event: APIGatewayEvent
 ) => {
-  const { limit } = jsonParse<Stripe.PriceListParams>(event.queryStringParameters)
+  const { limit } = parse<Stripe.PriceListParams>(event.queryStringParameters)
 
   try {
     const data = await stripeViewPrices({ limit });
