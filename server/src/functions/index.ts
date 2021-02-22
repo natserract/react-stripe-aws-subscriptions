@@ -1,3 +1,3 @@
-export { default as subscribePlan } from "./subscribePlan";
-export { viewProducts } from "./product";
+export { default as subscribePlan } from "./subscribe-plan";
+export { viewProducts, detailProduct } from "./product";
 export { viewPrices } from "./price";

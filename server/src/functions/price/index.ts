@@ -1,1 +1,1 @@
-export { default as viewPrices } from './viewPrices'
+export { default as viewPrices } from './view-prices'

@@ -3,7 +3,7 @@ import {
   formatJSONResponse,
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
-import { middyfy } from "@libs/lambda";
+import { middyfy, jsonParse } from "@libs/lambda";
 import { APIGatewayEvent } from "aws-lambda";
 import { stripeSubscribeToPlan } from "~/src/stripe/subscribeToPlan";
 
@@ -20,9 +20,7 @@ interface IRequestCustomer {
 const subscribePlanHandler: ValidatedEventAPIGatewayProxyEvent<IRequestCustomer> = async (
   event: APIGatewayEvent,
 ) => {
-  const eventBody = JSON.stringify(event.body);
-  const incoming: IRequestCustomer = JSON.parse(eventBody);
-  const { source, email, productPlanId } = incoming;
+  const { source, email, productPlanId } = jsonParse<IRequestCustomer>(event.body)
 
   try {
     const data = await stripeSubscribeToPlan(source, email, productPlanId);

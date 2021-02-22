@@ -11,3 +11,7 @@ const stripe = new Stripe(SECRET_API_KEY, {
 export const stripeViewProducts = async (productListParams: Stripe.ProductListParams) => {
   return await stripe.products.list(productListParams);
 };
+
+export const stripDetailProduct = async (productId: string) => {
+  return await stripe.products.retrieve(productId)
+}

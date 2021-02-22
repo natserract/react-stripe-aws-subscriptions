@@ -5,15 +5,13 @@ import {
 } from "@libs/apiGateway";
 import { APIGatewayEvent } from "aws-lambda";
 import { stripeViewPrices } from "~/src/stripe/price";
-import { middyfy } from "@libs/lambda";
+import { middyfy, jsonParse } from "@libs/lambda";
 import { Stripe } from "stripe";
 
 const viewPricesHandler: ValidatedEventAPIGatewayProxyEvent<Stripe.PriceListParams> = async (
   event: APIGatewayEvent
 ) => {
-  const queryString = JSON.stringify(event.queryStringParameters);
-  const incoming: Stripe.PriceListParams = JSON.parse(queryString);
-  const { limit } = incoming;
+  const { limit } = jsonParse<Stripe.PriceListParams>(event.queryStringParameters)
 
   try {
     const data = await stripeViewPrices({ limit });

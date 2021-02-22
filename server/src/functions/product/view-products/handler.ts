@@ -5,16 +5,14 @@ import {
 } from "@libs/apiGateway";
 import { APIGatewayEvent } from "aws-lambda";
 import { stripeViewProducts } from "~/src/stripe/product";
-import { middyfy } from "@libs/lambda";
+import { middyfy, jsonParse } from "@libs/lambda";
 import { Stripe } from "stripe";
 
 const viewProductsHandler: ValidatedEventAPIGatewayProxyEvent<Stripe.ProductListParams> = async (
   event: APIGatewayEvent
 ) => {
   // query_string allowed: limit
-  const queryString = JSON.stringify(event.queryStringParameters);
-  const incoming: Stripe.ProductListParams = JSON.parse(queryString);
-  const { limit } = incoming;
+  const { limit } = jsonParse<Stripe.ProductListParams>(event.queryStringParameters)
 
   try {
     const data = await stripeViewProducts({ limit });
