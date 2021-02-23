@@ -11,10 +11,6 @@ interface IRequestCustomer {
   source: string;
   email: string;
   productPlanId: string;
-  name?: string;
-  type?: string;
-  description?: string;
-  images?: Array<string>
 }
 
 const subscribePlanHandler: ValidatedEventAPIGatewayProxyEvent<IRequestCustomer> = async (

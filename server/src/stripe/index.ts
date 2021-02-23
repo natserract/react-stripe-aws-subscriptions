@@ -1,12 +1,12 @@
 import { Stripe } from "stripe";
 
-export { stripePaginate } from './paginate'
+export { stripePaginate } from "./paginate";
 
 const SECRET_API_KEY = process.env.STRIPE_SECRET_API_KEY;
 
 const stripe = new Stripe(SECRET_API_KEY, {
   apiVersion: "2020-08-27",
-  maxNetworkRetries: 2
+  maxNetworkRetries: 2,
 });
 
 export const stripeCustomers = {
@@ -16,12 +16,12 @@ export const stripeCustomers = {
       source,
     });
 
-    return customer
+    return customer;
   },
   delete: async (customerId: string) => {
-    return await stripe.customers.del(customerId)
-  }
-}
+    return await stripe.customers.del(customerId);
+  },
+};
 
 export const stripeSubscription = {
   subscribe: async (source: string, email: string, productPlanId: string) => {
@@ -51,7 +51,9 @@ export const stripePrices = {
 
 export const stripeProduct = {
   listAll: async (productListParams?: Stripe.ProductListParams) => {
-    return await stripe.products.list(productListParams);
+    return await stripe.products.list(productListParams, {
+      apiKey: SECRET_API_KEY
+    });
   },
   retrieve: async (productId: string) => {
     return await stripe.products.retrieve(productId);
@@ -60,6 +62,6 @@ export const stripeProduct = {
 
 export const stripeAccounts = {
   listAll: async (accountListParams?: Stripe.AccountListParams) => {
-    return await stripe.accounts.list(accountListParams)
-  }
-}
+    return await stripe.accounts.list(accountListParams);
+  },
+};
