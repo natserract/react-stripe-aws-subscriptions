@@ -34,18 +34,12 @@ type Props = {
     toastManager: ToastNotificationType;
 };
 
-const currencyFormatter = (input: number | bigint) => {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0,
-    }).format(input);
-}
 
 const useStyles = makeStyles(styles)
 
 const Dashboard = ({ toastManager }: Props) => {
     const classes = useStyles()
+    const [state, setState] = React.useState(null)
 
     const { error: err, showError } = useErrorHandler(null);
 
@@ -69,6 +63,10 @@ const Dashboard = ({ toastManager }: Props) => {
             autoDismiss: true
         });
     };
+
+    const filterPrice = (items: Array<any>, productPlanId: string) => {
+        return items.filter((node: any) => node.product === productPlanId)
+    }
 
     /**
    * Make request to AWS lambda function that handles creating
@@ -106,10 +104,12 @@ const Dashboard = ({ toastManager }: Props) => {
             panelLabel="Subscribe"
             stripeKey={STRIPE_PUBLISHABLE_KEY}
         >
+            {/* // disabled={!state} */}
             <Button size="small" color="primary">Select This Plan</Button>
         </StripeCheckout>
     )
 
+    const handleClick = React.useCallback((productId: any) => setState(productId), [])
 
     if (isLoading) return <LoadingBoundary />
     if (error) return <ErrorBoundary error={error} />
@@ -126,11 +126,12 @@ const Dashboard = ({ toastManager }: Props) => {
                             media={productNode?.images[0]}
                             title={productNode?.name}
                             description={productNode?.description}
-                            price={currencyFormatter(priceNode[index]?.unit_amount)}
+                            onClick={handleClick}
+                            prices={filterPrice(priceNode, productNode?.id)}
                             renderAction={
                                 <RenderAction
                                     node={productNode}
-                                    priceId={priceNode[index].id}
+                                    priceId={state}
                                 />
                             }
                         />

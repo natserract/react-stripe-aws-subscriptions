@@ -15,16 +15,26 @@ interface IProductCardProps {
   media: string;
   title: string;
   description: string;
-  price: string;
-  renderAction?: React.ReactNode
+  prices: any;
+  renderAction?: React.ReactNode,
+  onClick: any;
+}
+
+const currencyFormatter = (input: number | bigint) => {
+  return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+  }).format(input);
 }
 
 const ProductCard: React.FunctionComponent<IProductCardProps> = ({
   media,
   title,
   description,
-  price,
+  prices,
   renderAction,
+  onClick,
 }: IProductCardProps) => {
   const classes = useStyles();
 
@@ -40,9 +50,15 @@ const ProductCard: React.FunctionComponent<IProductCardProps> = ({
           <Typography gutterBottom variant="h5" component="h2">
             {title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {price}
-          </Typography>
+
+          {prices.map((price: any) => (
+            <Button key={price?.id} size="small" color="primary" onClick={() => onClick(price?.id)}>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {currencyFormatter(price?.unit_amount)}
+              </Typography>
+            </Button>
+          ))}
+
           <Typography variant="body2" color="textSecondary" component="p">
             {description}
           </Typography>
