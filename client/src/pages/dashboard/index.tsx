@@ -85,9 +85,9 @@ const Dashboard = ({ toastManager }: Props) => {
         };
 
         try {
-            const response = await apiRequest("http://localhost:3000/dev/subscribe-plan", "POST", bodyParams)
+            await apiRequest("http://localhost:3000/dev/subscribe-plan", "POST", bodyParams)
             toastNotification("Subscription successful", 'success');
-            return response
+            return;
         } catch (err) {
             showError(err.message);
         }

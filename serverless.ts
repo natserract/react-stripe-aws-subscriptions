@@ -4,6 +4,7 @@ import {
   viewProducts,
   viewPrices,
   detailProduct,
+  subscribePlanScheduled,
 } from './server/src/functions';
 
 const serverlessConfiguration: AWS = {
@@ -33,7 +34,8 @@ const serverlessConfiguration: AWS = {
     subscribePlan, 
     viewProducts, 
     viewPrices, 
-    detailProduct 
+    detailProduct ,
+    subscribePlanScheduled
   }
 }
 
