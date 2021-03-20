@@ -154,6 +154,14 @@ export const createAccountingSubscriptionScheduled = async (
 
   const incorp = serviceItems.find((i) => i.type == "incorp");
 
+  // switch () {
+  //   case value:
+      
+  //     break;
+  //   default:
+  //     break;
+  // }
+
   if (incorp) {
     const endDate = new Date();
 
@@ -204,13 +212,15 @@ export const createAccountingSubscriptionScheduled = async (
 
   await Promise.all(
     serviceItems.map(async (service) => {
-      const addons = await Promise.all(
+      const addons = service.addons ? await Promise.all(
         service.addons.map(async (addon) => {
           const addonPrice = await stripe.prices.retrieve(addon.priceId);
           addon.isRecurring = !!addonPrice.recurring;
           return addon;
         })
-      );
+      ): [];
+      
+      console.log('Addons', addons)
 
       if (
         [

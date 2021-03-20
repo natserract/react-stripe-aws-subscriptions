@@ -42,7 +42,7 @@ const subscribeSchedulePlanHandler: ValidatedEventAPIGatewayProxyEvent<IRequestS
     );
     return formatJSONResponse({ ...data });
   } catch (error) {
-    return formatJSONResponse(error);
+    return formatJSONResponse({ error: error.message });
   }
 };
 

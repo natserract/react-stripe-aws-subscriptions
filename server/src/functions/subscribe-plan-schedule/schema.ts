@@ -1,20 +1,20 @@
 export default {
-  type: "object",
+  type: "any",
   properties: {
     email: { type: "string" },
     serviceConfig: {
-      type: "object",
+      type: "any",
       properties: {
-        companySeal: {
-          type: "object",
+        "company-seal": {
+          type: "any",
           properties: {
             productId: { type: "string" },
             priceId: { type: "string" },
             qty: { type: "number" },
           },
         },
-        registeredAddress: {
-          type: "object",
+        "registered-address": {
+          type: "any",
           properties: {
             productId: { type: "string" },
             priceId: { type: "string" },
@@ -27,8 +27,8 @@ export default {
                 qty: { type: "number" },
               },
             },
-            forwardingAddress: {
-              type: "object",
+            "forwarding-address": {
+              type: "any",
               properties: {
                 formatted: { type: "string" },
                 street_address: { type: "string" },
@@ -60,8 +60,8 @@ export default {
             opt_in_digital_mailroom: { type: "boolean" },
           },
         },
-        accountingTax: {
-          type: "object",
+        "accounting-tax": {
+          type: "any",
           properties: {
             productId: { type: "string" },
             priceId: { type: "string" },
@@ -77,7 +77,7 @@ export default {
           },
         },
         hr: {
-          type: "object",
+          type: "any",
           properties: {
             productId: { type: "string" },
             priceId: { type: "string" },
@@ -92,8 +92,8 @@ export default {
             },
           },
         },
-        dataProtectionManagement: {
-          type: "object",
+        "data-protection-management": {
+          type: "any",
           properties: {
             productId: { type: "string" },
             priceId: { type: "string" },
@@ -109,7 +109,7 @@ export default {
           },
         },
         corpsec: {
-          type: "object",
+          type: "any",
           properties: {
             productId: { type: "string" },
             priceId: { type: "string" },
