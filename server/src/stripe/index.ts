@@ -1,4 +1,3 @@
-import { timeStamp } from "node:console";
 import { Stripe } from "stripe";
 
 const SECRET_API_KEY = process.env.STRIPE_SECRET_API_KEY;
@@ -48,8 +47,9 @@ const PRODUCTID_COMPANY_SEAL = process.env.PRODUCTID_COMPANY_SEAL;
 const THRESHOLD_PRODUCTIDS = process.env.THRESHOLD_PRODUCTIDS
   ? process.env.THRESHOLD_PRODUCTIDS.split(" ").map((e) => e.split(":"))
   : [];
-const PROMOTION_CODE_FIRST_PURCHASE_DISCOUNT =
-  process.env.PROMOTION_CODE_FIRST_PURCHASE_DISCOUNT;
+const PROMOTION_COUPON_ID_DISCOUNT =
+  process.env.PROMOTION_COUPON_ID_DISCOUNT;
+const PRODUCTID_COMPANY_INCORP = process.env.PRODUCTID_COMPANY_INCORP
 
 type AddonItem = {
   productId: string;
@@ -65,6 +65,20 @@ type ServiceItem = {
   type: string;
   addons: AddonItem[];
 };
+
+// On Demand Service
+const newCompanySealItems = [
+  {
+    price: "add ons price id",
+    quantity: 0,
+  }
+]
+
+const dataProtectionItems = [
+  {
+    // ...
+  }
+]
 
 export const stripe = new Stripe(SECRET_API_KEY, {
   apiVersion: "2020-08-27",
@@ -152,15 +166,8 @@ export const createAccountingSubscriptionScheduled = async (
     customer: customer.id,
   };
 
-  const incorp = serviceItems.find((i) => i.type == "incorp");
-
-  // switch () {
-  //   case value:
-      
-  //     break;
-  //   default:
-  //     break;
-  // }
+  const incorp = serviceItems.find((i) => i.productId === PRODUCTID_COMPANY_INCORP);
+  console.log(incorp)
 
   if (incorp) {
     const endDate = new Date();
@@ -173,7 +180,7 @@ export const createAccountingSubscriptionScheduled = async (
 
     const add_invoice_items: Stripe.SubscriptionCreateParams.AddInvoiceItem[] = [
       {
-        // Incorporation Fee dari Frontend,
+        // Incorporation Fee from Frontend,
         price: incorp.priceId,
         quantity: 1,
       },
@@ -220,7 +227,17 @@ export const createAccountingSubscriptionScheduled = async (
         })
       ): [];
       
-      console.log('Addons', addons)
+      console.log('Addons1', addons)
+      console.log('service.type', service.type)
+
+      switch (service.type) {
+        case '':
+          items.push(...newCompanySealItems)
+          break;
+        default:
+          console.error('Undefined items', items)
+          break;
+      }
 
       if (
         [
@@ -262,12 +279,13 @@ export const createAccountingSubscriptionScheduled = async (
           });
         }
       });
+
     })
   );
 
   schedule.phases.push({
     iterations: 2,
-    coupon: PROMOTION_CODE_FIRST_PURCHASE_DISCOUNT,
+    coupon: PROMOTION_COUPON_ID_DISCOUNT,
     // Recurring items only
     // Recurring License items from frontend (Base Package, Multi-currency Accounting, Managed Time Attendance),
     // Recurring License items from agent (e.g. Nominee director with quantity = 0),
@@ -277,7 +295,9 @@ export const createAccountingSubscriptionScheduled = async (
     add_invoice_items: add_invoice_items,
   });
 
-  return stripe.subscriptionSchedules.create();
+  console.log('schedule', schedule)
+
+  return stripe.subscriptionSchedules.create(schedule);
 };
 
 export const stripeCustomers = {
