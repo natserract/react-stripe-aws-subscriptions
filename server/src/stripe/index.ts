@@ -68,7 +68,7 @@ const PRODUCT_ID_LARGE_ACCOUNTING_TAX = process.env.PRODUCT_ID_LARGE_ACCOUNTING_
 const PRODUCT_ID_X_LARGE_ACCOUNTING_TAX = process.env.PRODUCT_ID_X_LARGE_ACCOUNTING_TAX
 const PRODUCT_ID_ESSENTIAL_HR_PACKAGE = process.env.PRODUCT_ID_ESSENTIAL_HR_PACKAGE
 const PRODUCT_ID_ESSENTIAL_CORPSEC = process.env.PRODUCT_ID_ESSENTIAL_CORPSEC
-const PRODUCT_ID_COMPREHENSIVE = process.env.PRODUCT_ID_COMPREHENSIVE
+const PRODUCT_ID_COMPREHENSIVE_CORPSEC = process.env.PRODUCT_ID_COMPREHENSIVE_CORPSEC
 
 type AddonItem = {
   productId: string;
@@ -408,6 +408,7 @@ export const createAccountingSubscriptionScheduled = async (
           break;
         case PRODUCT_ID_ESSENTIAL_CORPSEC:
           items.push(...corpsecEssentialAddonsItems)
+          break;
         default:
           console.log('Undefined items', items)
           break;
