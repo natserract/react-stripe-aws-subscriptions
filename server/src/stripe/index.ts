@@ -409,6 +409,8 @@ export const createAccountingSubscriptionScheduled = async (
         case PRODUCT_ID_ESSENTIAL_CORPSEC:
           items.push(...corpsecEssentialAddonsItems)
           break;
+        case PRODUCT_ID_COMPREHENSIVE_CORPSEC:
+          items.push(...corpsecCompherensiveAddonsItems)
         default:
           console.log('Undefined items', items)
           break;
