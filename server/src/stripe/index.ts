@@ -1,8 +1,8 @@
 import { Stripe } from "stripe";
 
-const SECRET_API_KEY = process.env.STRIPE_SECRET_API_KEY;
-const PRICEID_CONNECT_BANK_ACCOUNT_METERED =
-  process.env.PRICEID_CONNECT_BANK_ACCOUNT_METERED;
+const SECRET_API_KEY = process.env.STRIPE_SECRET_API_TEST_KEY;
+
+const PRICEID_CONNECT_BANK_ACCOUNT_METERED = process.env.PRICEID_CONNECT_BANK_ACCOUNT_METERED
 const PRICEID_GST_REGISTRATION_METERED =
   process.env.PRICEID_GST_REGISTRATION_METERED;
 const PRICEID_GST_QUARTERLY_SUBMISSION_METERED =
@@ -42,6 +42,15 @@ const PRICEID_CPF_ACCOUNT_SETUP_METERED =
   process.env.PRICEID_CPF_ACCOUNT_SETUP_METERED;
 const PRICEID_IR21_TAX_CLEARANCE_METERED =
   process.env.PRICEID_IR21_TAX_CLEARANCE_METERED;
+const PRICEID_APPOINTMENT_OF_DIRECTOR_FREE = process.env.PRICEID_APPOINTMENT_OF_DIRECTOR_FREE
+const PRICEID_RESIGNATION_OF_DIRECTOR_FREE = process.env.PRICEID_APPOINTMENT_OF_DIRECTOR_FREE
+const PRICEID_CHANGE_OF_DIRECTOR_PARTICULAR_FREE = process.env.PRICEID_APPOINTMENT_OF_DIRECTOR_FREE
+const PRICEID_CHANGE_OF_COMPANY_NAME_FREE = process.env.PRICEID_APPOINTMENT_OF_DIRECTOR_FREE
+const PRICEID_CHANGE_OF_REGISTERED_BUSINESS_ADDRESS_FREE = process.env.PRICEID_APPOINTMENT_OF_DIRECTOR_FREE
+const PRICEID_CHANGE_OF_FINANCIAL_YEAR_END_FREE = process.env.PRICEID_APPOINTMENT_OF_DIRECTOR_FREE
+const PRICEID_CHANGE_OF_PRINCIPAL_BUSINESS_ACTIVITIES_FREE = process.env.PRICEID_APPOINTMENT_OF_DIRECTOR_FREE
+const PRICEID_TRANSFER_ALLOTMENT_OF_SHARES_FREE = process.env.PRICEID_APPOINTMENT_OF_DIRECTOR_FREE
+const PRICEID_STRIKEOFF_OF_COMPANY_FREE = process.env.PRICEID_APPOINTMENT_OF_DIRECTOR_FREE
 const PRICEID_METERED_DRIVE_STORAGE = process.env.PRICEID_METERED_DRIVE_STORAGE;
 const PRODUCTID_COMPANY_SEAL = process.env.PRODUCTID_COMPANY_SEAL;
 const THRESHOLD_PRODUCTIDS = process.env.THRESHOLD_PRODUCTIDS
@@ -50,33 +59,138 @@ const THRESHOLD_PRODUCTIDS = process.env.THRESHOLD_PRODUCTIDS
 const PROMOTION_COUPON_ID_DISCOUNT =
   process.env.PROMOTION_COUPON_ID_DISCOUNT;
 const PRODUCTID_COMPANY_INCORP = process.env.PRODUCTID_COMPANY_INCORP
+const PRODUCT_ID_DATA_PROTECTION_MANAGEMENT = process.env.PRODUCT_ID_DATA_PROTECTION_MANAGEMENT
+const PRODUCT_ID_DATA_BREACH_MANAGEMENT = process.env.PRODUCT_ID_DATA_BREACH_MANAGEMENT
+const PRODUCT_ID_TRAINING_DATA_PROTECTION = process.env.PRODUCT_ID_TRAINING_DATA_PROTECTION
+const PRODUCT_ID_SMALL_ACCOUNTING_TAX = process.env.PRODUCT_ID_SMALL_ACCOUNTING_TAX
+const PRODUCT_ID_MEDIUM_ACCOUNTING_TAX = process.env.PRODUCT_ID_MEDIUM_ACCOUNTING_TAX
+const PRODUCT_ID_LARGE_ACCOUNTING_TAX = process.env.PRODUCT_ID_LARGE_ACCOUNTING_TAX
+const PRODUCT_ID_X_LARGE_ACCOUNTING_TAX = process.env.PRODUCT_ID_X_LARGE_ACCOUNTING_TAX
+const PRODUCT_ID_ESSENTIAL_HR_PACKAGE = process.env.PRODUCT_ID_ESSENTIAL_HR_PACKAGE
+const PRODUCT_ID_ESSENTIAL_CORPSEC = process.env.PRODUCT_ID_ESSENTIAL_CORPSEC
+const PRODUCT_ID_COMPREHENSIVE = process.env.PRODUCT_ID_COMPREHENSIVE
 
 type AddonItem = {
   productId: string;
   priceId: string;
-  quantity?: number;
+  qty?: number;
   isRecurring?: boolean;
 };
 
 type ServiceItem = {
   productId: string;
   priceId: string;
-  quantity?: number;
+  qty?: number;
   type: string;
   addons: AddonItem[];
 };
 
 // On Demand Service
-const newCompanySealItems = [
+const accountingTaxAddonsItems = [
   {
-    price: "add ons price id",
-    quantity: 0,
+    price: PRICEID_GST_QUARTERLY_SUBMISSION_METERED
+  },
+  {
+    price: PRICEID_ANNUAL_IR8S_SUBMISSION_METERED
+  },
+  {
+    price: PRICEID_TAX_FILLING_METERED
+  },
+  {
+    price: PRICEID_XBRL_FINANCIAL_METERED
   }
 ]
 
-const dataProtectionItems = [
+const hrServiceAddonsItems = [
   {
-    // ...
+    price: PRICEID_CPF_ACCOUNT_SETUP_METERED
+  },
+  {
+    price: PRICEID_BANK_ACCOUNT_GIRO_METERED
+  },
+  {
+    price: PRICEID_ANNUAL_IR8S_SUBMISSION_METERED
+  },
+  {
+    price: PRICEID_IR21_TAX_CLEARANCE_METERED
+  }
+]
+
+const dataProtectionManagementAddonsItems = [
+  {
+    price: PRICEID_REVIEW_OF_DATA_PROTECTION_POLICIES_METERED
+  }
+]
+
+const dataBreachManagementAddonsItems = [
+  {
+    price: PRICEID_DATA_BREACH_INCIDENT_SIMULATION_METERED
+  }
+]
+
+const trainingOnDataProtectionAddonsItems = [
+  {
+    price: PRICEID_REFRESHER_TRAINING_METERED
+  }
+]
+
+const corpsecEssentialAddonsItems = [
+  {
+    price: PRICEID_APPOINTMENT_OF_DIRECTOR_METERED
+  }, 
+  {
+    price: PRICEID_RESIGNATION_OF_DIRECTOR_METERED
+  },
+  {
+    price: PRICEID_CHANGE_OF_DIRECTOR_PARTICULAR_METERED
+  },
+  {
+    price: PRICEID_CHANGE_OF_COMPANY_NAME_METERED
+  },
+  {
+    price: PRICEID_CHANGE_OF_REGISTERED_BUSINESS_ADDRESS_METERED
+  }, 
+  {
+    price: PRICEID_CHANGE_OF_FINANCIAL_YEAR_END_METERED
+  },
+  {
+    price: PRICEID_CHANGE_OF_PRINCIPAL_BUSINESS_ACTIVITIES_METERED
+  },
+  {
+    price: PRICEID_TRANSFER_ALLOTMENT_OF_SHARES_METERED
+  },
+  {
+    price: PRICEID_STRIKEOFF_OF_COMPANY_METERED
+  }
+]
+
+const corpsecCompherensiveAddonsItems = [
+  {
+    price: PRICEID_APPOINTMENT_OF_DIRECTOR_FREE
+  }, 
+  {
+    price: PRICEID_RESIGNATION_OF_DIRECTOR_FREE
+  },
+  {
+    price: PRICEID_CHANGE_OF_DIRECTOR_PARTICULAR_FREE
+  },
+  {
+    price: PRICEID_CHANGE_OF_COMPANY_NAME_FREE
+  },
+  {
+    price: PRICEID_CHANGE_OF_REGISTERED_BUSINESS_ADDRESS_FREE
+  }, 
+  {
+    price: PRICEID_CHANGE_OF_FINANCIAL_YEAR_END_FREE
+  },
+  {
+    price: PRICEID_CHANGE_OF_PRINCIPAL_BUSINESS_ACTIVITIES_FREE
+  },
+  {
+    price: PRICEID_TRANSFER_ALLOTMENT_OF_SHARES_FREE
+  },
+  {
+    price: PRICEID_STRIKEOFF_OF_COMPANY_FREE
   }
 ]
 
@@ -94,59 +208,98 @@ export const createAccountingSubscription = (
   items: Stripe.SubscriptionCreateParams.Item[],
   add_invoice_items: Stripe.SubscriptionCreateParams.AddInvoiceItem[]
 ) => {
-  // With condition
-  // MOCK
-  /**
-   *  "accounting-tax": {
-            "productDesc": "Small Accounting Package",
-            "productId": "small",
-            "priceId": "$120/month",
-            "qty": 1,
-            "addons": [
-                {
-                    "productDesc": "GST Registration",
-                    "productId": "gst_registration",
-                    "priceId": "small/$400/one-time",
-                    "qty": 1
-                },
-                {
-                    "productDesc": "Bank Connection",
-                    "productId": "bank_connection",
-                    "priceId": "small/$15/one-time",
-                    "qty": 2
-                },
-            ]
-      }
-   */
-  // If accounting-tax !== null
-  // addOns[..].productId have priceId on stripe
-
-  // items.push({
-  //   price: PRICEID_CONNECT_BANK_ACCOUNT_METERED
-  // })
-
-  // items.push({
-  //   price: PRICEID_GST_REGISTRATION_METERED,
-  //   billing_thresholds: {
-  //     usage_gte: 1
-  //   }
-  // })
-
-  // items.push({
-  //   price: PRICEID_GST_QUARTERLY_SUBMISSION_METERED
-  // })
-
-  // items.push({
-  //   price: PRICEID_ANNUAL_IR8S_SUBMISSION_METERED
-  // })
-
-  // items.push({
-  //   price: PRICEID_TAX_FILLING_METERED
-  // })
-
-  // items.push({
-  //   price: PRICEID_XBRL_FINANCIAL_METERED
-  // })
+  const selectedItem = (priceId: string) => items.find(i => i.price === priceId)
+ 
+  if (selectedItem(PRICEID_CONNECT_BANK_ACCOUNT_METERED)) {
+    items.push({
+      price: PRICEID_CONNECT_BANK_ACCOUNT_METERED
+    })
+  } else if (selectedItem(PRICEID_GST_REGISTRATION_METERED)) {
+      items.push({
+        price: PRICEID_GST_REGISTRATION_METERED,
+        billing_thresholds: {
+          usage_gte: 1
+        }
+      })
+  } else if (selectedItem(PRICEID_GST_QUARTERLY_SUBMISSION_METERED)) {
+      items.push({
+        price: PRICEID_GST_QUARTERLY_SUBMISSION_METERED
+      })
+  } else if (selectedItem(PRICEID_ANNUAL_IR8S_SUBMISSION_METERED)) {
+    items.push({
+      price: PRICEID_ANNUAL_IR8S_SUBMISSION_METERED
+    })
+  } 
+  else if (selectedItem(PRICEID_TAX_FILLING_METERED)) {
+    items.push({
+      price: PRICEID_TAX_FILLING_METERED
+    })
+  } 
+  else if (selectedItem(PRICEID_XBRL_FINANCIAL_METERED)) {
+    items.push({
+      price: PRICEID_XBRL_FINANCIAL_METERED
+    })
+  } else if (selectedItem(PRICEID_BANK_ACCOUNT_GIRO_METERED)) {
+    items.push({
+      price: PRICEID_BANK_ACCOUNT_GIRO_METERED
+    })
+  } else if (selectedItem(PRICEID_APPOINTMENT_OF_DIRECTOR_METERED)) {
+    items.push({
+      price: PRICEID_APPOINTMENT_OF_DIRECTOR_METERED
+    })
+  } else if (selectedItem(PRICEID_RESIGNATION_OF_DIRECTOR_METERED)) {
+    items.push({
+      price: PRICEID_RESIGNATION_OF_DIRECTOR_METERED
+    })
+  } else if (selectedItem(PRICEID_CHANGE_OF_DIRECTOR_PARTICULAR_METERED)) {
+    items.push({
+      price: PRICEID_CHANGE_OF_DIRECTOR_PARTICULAR_METERED
+    })
+  } else if (selectedItem(PRICEID_CHANGE_OF_COMPANY_NAME_METERED)) {
+    items.push({
+      price: PRICEID_CHANGE_OF_COMPANY_NAME_METERED
+    })
+  } else if (selectedItem(PRICEID_CHANGE_OF_REGISTERED_BUSINESS_ADDRESS_METERED)) {
+    items.push({
+      price: PRICEID_CHANGE_OF_REGISTERED_BUSINESS_ADDRESS_METERED
+    })
+  } else if (selectedItem(PRICEID_CHANGE_OF_FINANCIAL_YEAR_END_METERED)) {
+    items.push({
+      price: PRICEID_CHANGE_OF_FINANCIAL_YEAR_END_METERED
+    })
+  } else if (selectedItem(PRICEID_CHANGE_OF_PRINCIPAL_BUSINESS_ACTIVITIES_METERED)) {
+    items.push({
+      price: PRICEID_CHANGE_OF_PRINCIPAL_BUSINESS_ACTIVITIES_METERED
+    })
+  } else if (selectedItem(PRICEID_TRANSFER_ALLOTMENT_OF_SHARES_METERED)) {
+    items.push({
+      price: PRICEID_TRANSFER_ALLOTMENT_OF_SHARES_METERED
+    })
+  } else if (selectedItem(PRICEID_STRIKEOFF_OF_COMPANY_METERED)) {
+    items.push({
+      price: PRICEID_STRIKEOFF_OF_COMPANY_METERED
+    })
+  } else if (selectedItem(PRICEID_REVIEW_OF_DATA_PROTECTION_POLICIES_METERED)) {
+    items.push({
+      price: PRICEID_REVIEW_OF_DATA_PROTECTION_POLICIES_METERED
+    })
+  } else if (selectedItem(PRICEID_DATA_BREACH_INCIDENT_SIMULATION_METERED)) {
+    items.push({
+      price: PRICEID_DATA_BREACH_INCIDENT_SIMULATION_METERED
+    })
+  } else if (selectedItem(PRICEID_REFRESHER_TRAINING_METERED)) {
+    items.push({
+      price: PRICEID_REFRESHER_TRAINING_METERED
+    })
+  } else if (selectedItem(PRICEID_CPF_ACCOUNT_SETUP_METERED)) {
+    items.push({
+      price: PRICEID_CPF_ACCOUNT_SETUP_METERED
+    })
+  } else if (selectedItem(PRICEID_IR21_TAX_CLEARANCE_METERED)) {
+    items.push({
+      price: PRICEID_IR21_TAX_CLEARANCE_METERED
+    })
+  } 
 
   return stripe.subscriptions.create({
     customer: customer.id,
@@ -167,7 +320,6 @@ export const createAccountingSubscriptionScheduled = async (
   };
 
   const incorp = serviceItems.find((i) => i.productId === PRODUCTID_COMPANY_INCORP);
-  console.log(incorp)
 
   if (incorp) {
     const endDate = new Date();
@@ -227,37 +379,60 @@ export const createAccountingSubscriptionScheduled = async (
         })
       ): [];
       
-      console.log('Addons1', addons)
-      console.log('service.type', service.type)
-
-      switch (service.type) {
-        case '':
-          items.push(...newCompanySealItems)
+      const { product: productId } = await stripe.prices.retrieve(service.priceId);
+      
+      switch (productId) {
+        case PRODUCT_ID_SMALL_ACCOUNTING_TAX:
+          items.push(...accountingTaxAddonsItems)
           break;
+        case PRODUCT_ID_MEDIUM_ACCOUNTING_TAX:
+          items.push(...accountingTaxAddonsItems)
+          break;
+        case PRODUCT_ID_LARGE_ACCOUNTING_TAX:
+          items.push(...accountingTaxAddonsItems)
+          break;
+        case PRODUCT_ID_X_LARGE_ACCOUNTING_TAX:
+          items.push(...accountingTaxAddonsItems)
+          break;
+        case PRODUCT_ID_DATA_PROTECTION_MANAGEMENT:
+          items.push(...dataProtectionManagementAddonsItems)
+          break;
+        case PRODUCT_ID_DATA_BREACH_MANAGEMENT:
+          items.push(...dataBreachManagementAddonsItems)
+          break;
+        case PRODUCT_ID_TRAINING_DATA_PROTECTION:
+          items.push(...trainingOnDataProtectionAddonsItems);
+          break;
+        case PRODUCT_ID_ESSENTIAL_HR_PACKAGE:
+          items.push(...hrServiceAddonsItems)
+          break;
+        case PRODUCT_ID_ESSENTIAL_CORPSEC:
+          items.push(...corpsecEssentialAddonsItems)
         default:
-          console.error('Undefined items', items)
+          console.log('Undefined items', items)
           break;
       }
 
       if (
         [
-          "data-protection-management",
-          "data-breach-management",
-          "data-protection-training",
-        ].includes(service.type)
+          PRODUCT_ID_DATA_PROTECTION_MANAGEMENT,
+          PRODUCT_ID_DATA_BREACH_MANAGEMENT,
+          PRODUCT_ID_TRAINING_DATA_PROTECTION,
+        ].includes(service.productId)
       ) {
         add_invoice_items.push({
           price: service.priceId,
-          quantity: service.quantity,
+          quantity: service.qty,
         });
       } else {
         items.push({
           price: service.priceId,
-          quantity: service.quantity,
+          quantity: service.qty,
         });
       }
 
       addons.forEach((addon) => {
+        // console.log('addon', addon)
         const found = THRESHOLD_PRODUCTIDS.find(([productId]: [string]) => {
           return addon.productId === productId;
         });
@@ -265,23 +440,25 @@ export const createAccountingSubscriptionScheduled = async (
         if (addon.isRecurring) {
           items.push({
             price: addon.priceId,
-            quantity: addon.quantity,
+            quantity: addon.qty,
             billing_thresholds: !found
               ? undefined
               : {
+                  // If pass this +found[1] -> Nan
                   usage_gte: +found[1],
                 },
           });
         } else {
           add_invoice_items.push({
             price: addon.priceId,
-            quantity: addon.quantity,
+            quantity: addon.qty,
           });
         }
       });
 
     })
   );
+
 
   schedule.phases.push({
     iterations: 2,
@@ -295,7 +472,8 @@ export const createAccountingSubscriptionScheduled = async (
     add_invoice_items: add_invoice_items,
   });
 
-  console.log('schedule', schedule)
+  console.log('schedule phase items', items)
+  console.log('schedule phase addinvoiceitems', add_invoice_items)
 
   return stripe.subscriptionSchedules.create(schedule);
 };
